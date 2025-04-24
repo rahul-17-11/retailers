@@ -78,7 +78,7 @@ export default function RetailerAndLocationTemplate() {
         <div className="divider text-base-content/70">Your Location</div>
 
         <div className="flex justify-center">
-          <UserLocationCard userData={geoInfo} isLoading={isLoading} />
+          <UserLocationCard isLoading={isLoading} />
         </div>
       </div>
     </div>
