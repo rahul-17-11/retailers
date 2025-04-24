@@ -1,12 +1,44 @@
-# React + Vite
+# 🛍️ Retailer Listing UI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A sleek and responsive web application for listing retailers with category filtering and search functionality. Built using **React**, **TailwindCSS**, and **Zustand** for state management. Deployed on **Vercel**.
 
-Currently, two official plugins are available:
+🌐 Live Site: [https://retailers.vercel.app](https://retailers.vercel.app)
+## 📸 Preview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+![Retailer UI Screenshot](./assets/screenshot.png)
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## ✨ Features
+
+- 🔍 **Search Retailers** — Find retailers by name with a smooth, debounced search input.
+- 🗂️ **Category Filter** — Instantly filter retailers by category.
+- 📱 **Responsive Design** — Works seamlessly across devices.
+- ⚡ **Fast State Management** — Powered by Zustand for efficient reactivity.
+- 🎨 **Modern UI** — Clean and minimal interface with TailwindCSS.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend**: [React](https://reactjs.org/), [TailwindCSS](https://tailwindcss.com/)
+- **State Management**: [Zustand](https://zustand-demo.pmnd.rs/)
+- **Deployment**: [Vercel](https://vercel.com/)
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+
+### Installation
+
+```bash
+git clone https://github.com/your-username/retailer-listing-ui.git
+cd retailer-listing-ui
+npm install
+# or
+yarn install
