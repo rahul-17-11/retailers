@@ -20,7 +20,6 @@ export default function RetailerAndLocationTemplate() {
     handleInput,
     getVisitorsIp,
     fetchIpInfo,
-    geoInfo,
     isLoading,
   } = useGeoStore();
 
