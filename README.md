@@ -38,8 +38,8 @@ A sleek and responsive web application for listing retailers with category filte
 ### Installation
 
 ```bash
-git clone https://github.com/your-username/retailer-listing-ui.git
-cd retailer-listing-ui
+git clone https://github.com/rahul-17-11/retailers.git
+cd retailer
 npm install
 # or
 yarn install
