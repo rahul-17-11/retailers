@@ -5,7 +5,7 @@ A sleek and responsive web application for listing retailers with category filte
 🌐 Live Site: [https://retailers.vercel.app](https://retailers.vercel.app)
 ## 📸 Preview
 
-![Retailer UI Screenshot](./assets/screenshot.png)
+![Retailer UI Screenshot](./src/assets/screenshot.png)
 
 ---
 
