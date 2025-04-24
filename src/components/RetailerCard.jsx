@@ -1,4 +1,43 @@
+import { useGeoStore } from "../store/useGeoStore";
+
+// Function to calculate distance between two coordinates in kilometers
+function calculateDistance(lat1, lon1, lat2, lon2) {
+  const R = 6371; // Radius of the Earth in km
+  const dLat = ((lat2 - lat1) * Math.PI) / 180;
+  const dLon = ((lon2 - lon1) * Math.PI) / 180;
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos((lat1 * Math.PI) / 180) *
+      Math.cos((lat2 * Math.PI) / 180) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  const distance = R * c; // Distance in km
+  return distance;
+}
+
+// Format the distance to be more readable
+function formatDistance(distance) {
+  if (distance < 1) {
+    return `${Math.round(distance * 1000)} m`;
+  }
+  return `${distance.toFixed(1)} km`;
+}
+
 export function RetailerCard({ retailer }) {
+  const { geoInfo } = useGeoStore();
+
+  // Calculate distance if geoInfo is available
+  let distance = null;
+  if (geoInfo && geoInfo.lat && geoInfo.lon) {
+    distance = calculateDistance(
+      geoInfo.lat,
+      geoInfo.lon,
+      retailer.latitude,
+      retailer.longitude
+    );
+  }
+
   return (
     <div className="card bg-base-100 shadow-lg hover:shadow-xl transition-shadow">
       <div className="card-body">
@@ -48,6 +87,29 @@ export function RetailerCard({ retailer }) {
             </svg>
             <span className="text-sm">+{retailer.phoneNumber}</span>
           </div>
+
+          {/* Display distance information if available */}
+          {distance !== null && (
+            <div className="flex items-center gap-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-4 w-4 text-accent"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M13 7l5 5m0 0l-5 5m5-5H6"
+                />
+              </svg>
+              <span className="text-sm font-medium">
+                {formatDistance(distance)} away
+              </span>
+            </div>
+          )}
         </div>
 
         <div className="card-actions justify-end mt-2">

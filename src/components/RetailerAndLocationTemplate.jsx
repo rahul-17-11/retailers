@@ -18,8 +18,6 @@ export default function RetailerAndLocationTemplate() {
     filteredRetailer,
     filterBySearch,
     handleInput,
-    getVisitorsIp,
-    fetchIpInfo,
     isLoading,
   } = useGeoStore();
 
@@ -44,8 +42,6 @@ export default function RetailerAndLocationTemplate() {
     const timeout = setTimeout(() => {
       setIsRetailersLoading(false);
     }, 500);
-    getVisitorsIp();
-    fetchIpInfo();
 
     return () => clearTimeout(timeout);
   }, [debouncedSearch, category, searchRetailers]);
