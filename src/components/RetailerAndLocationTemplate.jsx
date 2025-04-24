@@ -23,6 +23,11 @@ export default function RetailerAndLocationTemplate() {
 
   const debouncedSearch = useDebouce(inputVal, 400);
 
+  const handleSort = () => {
+    useGeoStore.getState().sortRetailerByDistance(retailers);
+    setRetailers(useGeoStore.getState().sortedRetailer);
+  };
+
   useEffect(() => {
     setIsRetailersLoading(true);
 
@@ -54,6 +59,12 @@ export default function RetailerAndLocationTemplate() {
         <div className="flex flex-col w-full md:flex-row justify-center items-center gap-4 mb-4">
           <Searchbar inputVal={inputVal} handleInput={handleInput} />
           <SelectCategory />
+          <button
+            className="btn btn-sm btn-outline btn-accent"
+            onClick={handleSort}
+          >
+            Sort By Closest
+          </button>
         </div>
 
         {/* Retailer Cards Section */}
@@ -67,13 +78,6 @@ export default function RetailerAndLocationTemplate() {
                   <RetailerCard key={retailer.id} retailer={retailer} />
                 ))}
           </div>
-        </div>
-
-        {/* Divider between sections */}
-        <div className="divider text-base-content/70">Your Location</div>
-
-        <div className="flex justify-center">
-          <UserLocationCard isLoading={isLoading} />
         </div>
       </div>
     </div>

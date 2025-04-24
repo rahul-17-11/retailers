@@ -4,11 +4,10 @@ import RetailerAndLocationTemplate from "./components/RetailerAndLocationTemplat
 import { useGeoStore } from "./store/useGeoStore";
 
 function App() {
-  const { getVisitorsIp, fetchIpInfo } = useGeoStore();
+  const { getGeoLocation } = useGeoStore();
 
   useEffect(() => {
-    getVisitorsIp();
-    fetchIpInfo();
+    getGeoLocation();
   }, []);
 
   return (

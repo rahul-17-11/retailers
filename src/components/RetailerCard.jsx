@@ -1,8 +1,8 @@
 import { useGeoStore } from "../store/useGeoStore";
+import { ImWhatsapp } from "react-icons/im";
 
-// Function to calculate distance between two coordinates in kilometers
-function calculateDistance(lat1, lon1, lat2, lon2) {
-  const R = 6371; // Radius of the Earth in km
+export function calculateDistance(lat1, lon1, lat2, lon2) {
+  const R = 6371;
   const dLat = ((lat2 - lat1) * Math.PI) / 180;
   const dLon = ((lon2 - lon1) * Math.PI) / 180;
   const a =
@@ -12,7 +12,7 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
       Math.sin(dLon / 2) *
       Math.sin(dLon / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  const distance = R * c; // Distance in km
+  const distance = R * c;
   return distance;
 }
 
@@ -25,14 +25,14 @@ function formatDistance(distance) {
 }
 
 export function RetailerCard({ retailer }) {
-  const { geoInfo } = useGeoStore();
+  const { location } = useGeoStore();
 
-  // Calculate distance if geoInfo is available
+  // Calculate distance if location is available
   let distance = null;
-  if (geoInfo && geoInfo.lat && geoInfo.lon) {
+  if (location && location.latitude && location.longitude) {
     distance = calculateDistance(
-      geoInfo.lat,
-      geoInfo.lon,
+      location.latitude,
+      location.longitude,
       retailer.latitude,
       retailer.longitude
     );
@@ -125,9 +125,9 @@ export function RetailerCard({ retailer }) {
             href={retailer.whatsappLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn btn-sm btn-primary"
+            className="btn btn-sm btn-primary rounded-full"
           >
-            Message
+            <ImWhatsapp className="size-full p-1" />
           </a>
         </div>
       </div>

@@ -2,6 +2,7 @@
 import axios from "axios";
 import { create } from "zustand";
 import { axiosInstance } from "../lib/axios";
+import { calculateDistance } from "../components/RetailerCard";
 
 export const useGeoStore = create((set, get) => ({
   ipAddress: "",
@@ -9,6 +10,10 @@ export const useGeoStore = create((set, get) => ({
   isLoading: false,
   category: "",
   inputVal: "",
+  location: "",
+  locationError: "",
+  distance: "",
+  sortedRetailer: [],
   searchRetailers: [
     {
       id: 1,
@@ -134,6 +139,10 @@ export const useGeoStore = create((set, get) => ({
   filteredRetailer: [],
   searchedRetailer: [],
 
+  saveDistance: (distance) => {
+    set({ distance: distance });
+  },
+
   getVisitorsIp: async () => {
     set({ isLoading: true });
     try {
@@ -152,12 +161,25 @@ export const useGeoStore = create((set, get) => ({
     set({ filteredRetailer: res });
   },
 
-  filterBySearch: ({ inputVal }) => {
-    const { searchRetailers } = get();
-    const result = searchRetailers.filter((e) =>
-      e.name.toLowerCase().includes(inputVal.toLowerCase())
-    );
-    set({ searchedRetailer: result });
+  sortRetailerByDistance: (retailers) => {
+    const { location } = get();
+    if (!location) return;
+    const sorted = [...retailers].sort((a, b) => {
+      const distA = calculateDistance(
+        location.latitude,
+        location.longitude,
+        a.latitude,
+        a.longitude
+      );
+      const distB = calculateDistance(
+        location.latitude,
+        location.longitude,
+        b.latitude,
+        b.longitude
+      );
+      return distA - distB;
+    });
+    set({ sortedRetailer: sorted });
   },
 
   fetchIpInfo: async () => {
@@ -178,6 +200,24 @@ export const useGeoStore = create((set, get) => ({
     const { filterRetailer } = get();
     set({ category });
     filterRetailer({ category });
+  },
+
+  getGeoLocation: () => {
+    if (!navigator.geolocation) {
+      set({ locationError: "Geolocation is not available for you " });
+    }
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        let coords = {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        };
+        set({ location: coords });
+      },
+      (err) => {
+        set({ locationError: "Failed to retrive location" + err });
+      }
+    );
   },
 
   handleInput: (e) => {
