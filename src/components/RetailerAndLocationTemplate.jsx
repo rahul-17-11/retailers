@@ -18,7 +18,6 @@ export default function RetailerAndLocationTemplate() {
     filteredRetailer,
     filterBySearch,
     handleInput,
-    isLoading,
   } = useGeoStore();
 
   const debouncedSearch = useDebouce(inputVal, 400);

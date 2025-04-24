@@ -139,10 +139,6 @@ export const useGeoStore = create((set, get) => ({
   filteredRetailer: [],
   searchedRetailer: [],
 
-  saveDistance: (distance) => {
-    set({ distance: distance });
-  },
-
   getVisitorsIp: async () => {
     set({ isLoading: true });
     try {
@@ -153,6 +149,14 @@ export const useGeoStore = create((set, get) => ({
     } finally {
       set({ isLoading: false });
     }
+  },
+
+  filterBySearch: ({ inputVal }) => {
+    const { searchRetailers } = get();
+    const result = searchRetailers.filter((e) =>
+      e.name.toLowerCase().includes(inputVal.toLowerCase())
+    );
+    set({ searchedRetailer: result });
   },
 
   filterRetailer: ({ category }) => {
